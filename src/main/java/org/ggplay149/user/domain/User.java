@@ -5,20 +5,26 @@ import org.ggplay149.common.domain.PositiveIntegerCounter;
 
 public class User {
 
-    private final long id;
+    private final Long id;
     private final UserInfo userInfo;
     private final PositiveIntegerCounter followingCount;
     private final PositiveIntegerCounter followerCount;
 
-    public User(long id, UserInfo userInfo, PositiveIntegerCounter followingCount,
-        PositiveIntegerCounter followerCount) {
+    public User(Long id, UserInfo userInfo) {
+
+        if(userInfo == null){
+            throw new IllegalArgumentException();
+        }
+
         this.id = id;
         this.userInfo = userInfo;
-        this.followingCount = followingCount;
-        this.followerCount = followerCount;
+        this.followingCount = new PositiveIntegerCounter();
+        this.followerCount = new PositiveIntegerCounter();
+
     }
 
     public void follow (User targetUser){
+
         if(targetUser.equals(this)){
             throw new IllegalArgumentException();
         }
